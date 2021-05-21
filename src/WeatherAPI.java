@@ -53,7 +53,7 @@ public class WeatherAPI {
 		
 	public void getINFO() {
 		
-		//ø¿¥√ ≥Ø¬•
+		//Ïò§Îäò ÎÇ†Ïßú
 		SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
 		String todayDate = date.format(System.currentTimeMillis());
 		
@@ -61,15 +61,15 @@ public class WeatherAPI {
 		int nowHour = c.get(Calendar.HOUR_OF_DAY);
 		int hour = 0;
 		
-		//ºº Ω√∞£ ¥‹¿ß¿« ≥Ø¬•øÕ Ω√∞£¿ª ±∏«‘ (¡§∫∏ ∞ªΩ≈ ¡÷±‚∞° ºº Ω√∞£)
+		//ÏÑ∏ ÏãúÍ∞Ñ Îã®ÏúÑÏùò ÎÇ†ÏßúÏôÄ ÏãúÍ∞ÑÏùÑ Íµ¨Ìï® (Ï†ïÎ≥¥ Í∞±Ïã† Ï£ºÍ∏∞Í∞Ä ÏÑ∏ ÏãúÍ∞Ñ)
 		if (nowHour >= 0 && nowHour < 2) { 
-			//¿Ã ∞ÊøÏ æÓ¡¶ ≥Ø¬• 11Ω√¿« ¡§∫∏∏¶ ∞°¡ÆøÕæﬂ «‘
+			//Ïù¥ Í≤ΩÏö∞ Ïñ¥Ï†ú ÎÇ†Ïßú 11ÏãúÏùò Ï†ïÎ≥¥Î•º Í∞ÄÏ†∏ÏôÄÏïº Ìï®
 			int dateNum = Integer.parseInt(todayDate);
-			if (dateNum % 100 == 1) // 1¿œ¿Œ ∞ÊøÏ
+			if (dateNum % 100 == 1) // 1ÏùºÏù∏ Í≤ΩÏö∞
 			{
-				if (((dateNum % 10000) / 100) == 1) // 1ø˘ 1¿œ
+				if (((dateNum % 10000) / 100) == 1) // 1Ïõî 1Ïùº
 					dateNum -= 8870;
-				else if (((dateNum % 10000) / 100) == 3) // 3ø˘ 1¿œ
+				else if (((dateNum % 10000) / 100) == 3) // 3Ïõî 1Ïùº
 					dateNum -= 73;
 				else if (((dateNum % 10000) / 100) == 5 || ((dateNum % 10000) / 100) == 7 ||
 						 ((dateNum % 10000) / 100) == 8 ||((dateNum % 10000) / 100) == 10 ||((dateNum % 10000) / 100) == 12)
@@ -94,7 +94,7 @@ public class WeatherAPI {
 		else URLHour = Integer.toString(hour);
 		URLHour += "00";
 		
-		try { //«¸Ωƒø° ∏¬¥¬ URL ¡¶¿€
+		try { //ÌòïÏãùÏóê ÎßûÎäî URL Ï†úÏûë
 			StringBuilder URLMaker = new StringBuilder(URL);
 			URLMaker.append("?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + key);
 			URLMaker.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
@@ -104,37 +104,37 @@ public class WeatherAPI {
 			URLMaker.append("&" + URLEncoder.encode("base_time", "UTF-8") + "=" + URLEncoder.encode(URLHour, "UTF-8"));
 			URLMaker.append("&" + URLEncoder.encode("nx", "UTF-8") + "=" + URLEncoder.encode("89", "UTF-8"));
 			URLMaker.append("&" + URLEncoder.encode("ny", "UTF-8") + "=" + URLEncoder.encode("91", "UTF-8"));
-			// System.out.println(todayDate); ≥Ø¬• ≈◊Ω∫∆Æ
-			// System.out.println(URLHour); Ω√∞£ ≈◊Ω∫∆Æ
+			// System.out.println(todayDate); ÎÇ†Ïßú ÌÖåÏä§Ìä∏
+			// System.out.println(URLHour); ÏãúÍ∞Ñ ÌÖåÏä§Ìä∏
 			
-			//∏∏µÈæÓ¡¯ URL∑Œ ø¨∞·
+			//ÎßåÎì§Ïñ¥ÏßÑ URLÎ°ú Ïó∞Í≤∞
 			URL MadeURL = new URL(URLMaker.toString());
 			HttpURLConnection connect = (HttpURLConnection) MadeURL.openConnection(); 
 			connect.setRequestMethod("GET");
 			connect.setRequestProperty("Connect-type", "application/json");
 			
-			String results = ""; //∞·∞˙∏¶ ¿˙¿Â«“ πÆ¿⁄ø≠
+			String results = ""; //Í≤∞Í≥ºÎ•º Ï†ÄÏû•Ìï† Î¨∏ÏûêÏó¥
 			if (connect.getResponseCode() >= 200 && connect.getResponseCode() <= 300) {
-				// 200 ~ 300¿œ ∂ß ¡§ªÛ ø¨∞·
+				// 200 ~ 300Ïùº Îïå Ï†ïÏÉÅ Ïó∞Í≤∞
 				StringBuilder info = new StringBuilder();
 
-				// πˆ∆€ ∏Æ¥ı∏¶ ≈Î«— input πÊΩƒ UTF-8¿Ã æ∆¥“ Ω√ ¡§∫∏ ±˙¡¸
+				// Î≤ÑÌçº Î¶¨ÎçîÎ•º ÌÜµÌïú input Î∞©Ïãù UTF-8Ïù¥ ÏïÑÎãê Ïãú Ï†ïÎ≥¥ Íπ®Ïßê
 				BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream(), "UTF-8"));
 				String infoLine;
 				while ((infoLine = br.readLine()) != null)
 					info.append(infoLine);
-				// System.out.println(info.toString()); // ¡§∫∏∏¶ πﬁæ“¥¬¡ˆ ≈◊Ω∫∆Æ
+				// System.out.println(info.toString()); // Ï†ïÎ≥¥Î•º Î∞õÏïòÎäîÏßÄ ÌÖåÏä§Ìä∏
 				
 				br.close();
 				connect.disconnect();
 				results = info.toString();
 			}
 			
-			// ∞°¡Æø¬ πÆ¿⁄ø≠ µ•¿Ã≈Õ∏¶ ∞¥√º∑Œ ∫Ø»Ø
+			// Í∞ÄÏ†∏Ïò® Î¨∏ÏûêÏó¥ Îç∞Ïù¥ÌÑ∞Î•º Í∞ùÏ≤¥Î°ú Î≥ÄÌôò
 			JSONParser ps = new JSONParser();
 			JSONObject object = (JSONObject)ps.parse(results);
 			
-			// response ≈∞∑Œ ∆ƒΩÃ -> body -> items
+			// response ÌÇ§Î°ú ÌååÏã± -> body -> items
 			JSONObject response = (JSONObject)object.get("response");
 			JSONObject body = (JSONObject)response.get("body");			
 			JSONObject items = (JSONObject)body.get("items");
@@ -144,7 +144,7 @@ public class WeatherAPI {
 			JSONObject weather;
 			
 			ArrayList<WeatherInfo> infos = new ArrayList<WeatherInfo>();
-			//ArrayListø° ∞™ ≥÷æÓ¡÷±‚
+			//ArrayListÏóê Í∞í ÎÑ£Ïñ¥Ï£ºÍ∏∞
 			for (int i = 0; i < item.size(); i++) {
 				weather = (JSONObject) item.get(i);
 				tag = (String)weather.get("category");
@@ -152,27 +152,27 @@ public class WeatherAPI {
 				
 				WeatherInfo wi = new WeatherInfo (tag, value);
 				infos.add(wi);
-				/* ¡§∫∏∞° ¿ﬂ µÈæÓ∞¨¥¬¡ˆ ∞À≈‰
+				/* Ï†ïÎ≥¥Í∞Ä Ïûò Îì§Ïñ¥Í∞îÎäîÏßÄ Í≤ÄÌÜ†
 				System.out.print("Category: " + tag);
 				System.out.println(" Value: " + value);
 				*/
 			}
 			
-			/** ¬¸∞Ì «•
-			 * POP : ∞≠ºˆ »Æ∑¸
-			 * PTY : ∞≠ºˆ ªÛ≈¬ | 0: æ¯¿Ω | 1: ∫Ò | 2: ∫Ò/¥´ | 3: ¥´/∫Ò | 4: ¥´
-			 * RO6 : 6Ω√∞£ ∞≠ºˆ∑Æ
-			 * REH : Ω¿µµ
-			 * SO6 : 6Ω√∞£ ¿˚º≥∑Æ
-			 * SKY : «œ¥√ ªÛ≈¬ | 1: ∏º¿Ω | 2: ±∏∏ß ¡∂±› | 3: ±∏∏ß ∏π¿Ω | 4: »Â∏≤
-			 * T3H : 3Ω√∞£ ±‚ø¬
-			 * UUU : πŸ∂˜ ∞¸∑√
-			 * VEC : πŸ∂˜ ∞¸∑√ 
-			 * VVV : πŸ∂˜ ∞¸∑√
+			/** Ï∞∏Í≥† Ìëú
+			 * POP : Í∞ïÏàò ÌôïÎ•† (ÏÇ¨Ïö© X)
+			 * PTY : Í∞ïÏàò ÏÉÅÌÉú | 0: ÏóÜÏùå | 1: ÎπÑ | 2: ÎπÑ/Îàà | 3: Îàà/ÎπÑ | 4: Îàà
+			 * RO6 : 6ÏãúÍ∞Ñ Í∞ïÏàòÎüâ (ÏÇ¨Ïö© X)
+			 * REH : ÏäµÎèÑ (ÏÇ¨Ïö© X)
+			 * SO6 : 6ÏãúÍ∞Ñ Ï†ÅÏÑ§Îüâ (ÏÇ¨Ïö© X)
+			 * SKY : ÌïòÎäò ÏÉÅÌÉú | 1: ÎßëÏùå | 2: Íµ¨Î¶Ñ Ï°∞Í∏à | 3: Íµ¨Î¶Ñ ÎßéÏùå | 4: ÌùêÎ¶º
+			 * T3H : 3ÏãúÍ∞Ñ Í∏∞Ïò®
+			 * UUU : Î∞îÎûå Í¥ÄÎ†® (ÏÇ¨Ïö© X)
+			 * VEC : Î∞îÎûå Í¥ÄÎ†® (ÏÇ¨Ïö© X)
+			 * VVV : Î∞îÎûå Í¥ÄÎ†® (ÏÇ¨Ïö© X)
 			 */
 			
 			for (WeatherInfo wis : infos) {
-				//forEach πÆ¿ª ≈Î«ÿ « ø‰«— ¡§∫∏∏∏ √ﬂ√‚
+				//forEach Î¨∏ÏùÑ ÌÜµÌï¥ ÌïÑÏöîÌïú Ï†ïÎ≥¥Îßå Ï∂îÏ∂ú
 				if (wis.getTag().equals("PTY")) {
 					if (wis.getValue().equals("1") || wis.getValue().equals("2"))
 						isRain = true;
