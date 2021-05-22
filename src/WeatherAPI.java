@@ -69,7 +69,7 @@ public class WeatherAPI {
 			{
 				if (((dateNum % 10000) / 100) == 1) // 1월 1일
 					dateNum -= 8870;
-				else if (((dateNum % 10000) / 100) == 3) // 3월 1일
+				else if (((dateNum % 10000) / 100) == 3) // 3월 1일 -> 2월 28일 (윤년 고려 X)
 					dateNum -= 73;
 				else if (((dateNum % 10000) / 100) == 5 || ((dateNum % 10000) / 100) == 7 ||
 						 ((dateNum % 10000) / 100) == 8 ||((dateNum % 10000) / 100) == 10 ||((dateNum % 10000) / 100) == 12)
@@ -77,6 +77,7 @@ public class WeatherAPI {
 				else
 					dateNum -= 70;
 			}
+			else dateNum -= 1;
 			todayDate = Integer.toString(dateNum);
 			hour = 23;
 		}
@@ -159,16 +160,16 @@ public class WeatherAPI {
 			}
 			
 			/** 참고 표
-			 * POP : 강수 확률 (사용 X)
+			 * POP : 강수 확률
 			 * PTY : 강수 상태 | 0: 없음 | 1: 비 | 2: 비/눈 | 3: 눈/비 | 4: 눈
-			 * RO6 : 6시간 강수량 (사용 X)
-			 * REH : 습도 (사용 X)
-			 * SO6 : 6시간 적설량 (사용 X)
+			 * RO6 : 6시간 강수량
+			 * REH : 습도
+			 * SO6 : 6시간 적설량
 			 * SKY : 하늘 상태 | 1: 맑음 | 2: 구름 조금 | 3: 구름 많음 | 4: 흐림
 			 * T3H : 3시간 기온
-			 * UUU : 바람 관련 (사용 X)
-			 * VEC : 바람 관련 (사용 X)
-			 * VVV : 바람 관련 (사용 X)
+			 * UUU : 바람 관련
+			 * VEC : 바람 관련 
+			 * VVV : 바람 관련
 			 */
 			
 			for (WeatherInfo wis : infos) {
@@ -182,7 +183,7 @@ public class WeatherAPI {
 					if (wis.getValue().equals("1") || wis.getValue().equals("2"))
 						isSunny = true;
 					else if (wis.getValue().equals("3") || wis.getValue().equals("4"))
-						isCloud = true;
+						isCloud = true;	
 				} else if (wis.getTag().equals("T3H"))
 					temperature = Integer.parseInt(wis.getValue());
 			}
