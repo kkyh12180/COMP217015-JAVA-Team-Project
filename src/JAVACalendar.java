@@ -2,11 +2,10 @@
  * 2020114670 최희정 
  */
 
-import java.awt.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-class JAVACalendar {
+public class JAVACalendar {
 	// 달력에 넣을 칸들
 	int Dates[][] = new int[6][7];
 
@@ -33,43 +32,34 @@ class JAVACalendar {
 
 		//오늘 날짜 계산
 		calDate(Today);
-		}
+	}
 
 	public void calDate(Calendar cal) {
 		int startDay = (cal.get(Calendar.DAY_OF_WEEK) + 7 - (cal.get(Calendar.DAY_OF_MONTH)) % 7) % 7;
 
-		if (Month == 1) {
+		if (Month == 1)
 			// 2월인 경우 윤년에 따라 마지막 날짜 바뀜.
 			Lastday = Lastdays[Month] + leapCheck(Year);
-		} else {
+		else 
 			Lastday = Lastdays[Month];
-		}
+		
 
 		//달력 초기화
 		for (int i = 0; i < 6; i++)
 		{
 			for (int j = 0; j < 7; j++)
-			{
 				Dates[i][j] = 0;
-			}
 		}
 		
 		
 		for (int i = 0, num = 1, k = 0; i < 6; i++) {
-			if (i == 0) {
-				k = startDay;
-			} else {
-				k = 0;
-			}
+			if (i == 0) k = startDay;
+			else k = 0;
 
 			for (int j = k; j < 7; j++) {
-				if (num <= Lastday) {
-					Dates[i][j] = num++;
-				}
+				if (num <= Lastday) Dates[i][j] = num++;
 			}
-		}
-
-		
+		}	
 	}
 	
 	public int leapCheck(int year)

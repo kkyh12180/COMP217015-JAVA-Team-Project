@@ -9,8 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
-	public static final int WIDTH = 500;
-	public static final int HEIGHT = 300;
 	// main에 모두 붙임
 	JFrame main;
 	//////////////////////
@@ -44,7 +42,7 @@ public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 	public JAVAMemoCalendar() {
 		main = new JFrame("Our Calendar");
 		main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		main.setSize(700, 300);
+		main.setSize(700, 400);
 		main.setLocationRelativeTo(null); // 가운데에 창이 뜨게 함
 		main.setResizable(false);
 
@@ -103,7 +101,6 @@ public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 		main.setVisible(true);
 
 		focusToday();
-
 	}
 
 	private void visibleCal() {
@@ -167,12 +164,11 @@ public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 			Cal = new GregorianCalendar(Year, Month, Day);
 
 			new newWindow();
-
 		}
 	}
 
 	class newWindow extends JFrame {
-		newWindow() {
+		public newWindow() {
 			// 일기장이 나오던가 하는 방식으로
 			JFrame newwindow = new JFrame();
 			Panel newWindowPanel = new Panel();
@@ -184,7 +180,6 @@ public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 			newwindow.add(newWindowPanel);
 			newwindow.setVisible(true);
 			newwindow.setSize(500, 500);
-
 		}
 	}
 
@@ -199,9 +194,5 @@ public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 		}
 	}
 	*/
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	public void actionPerformed(ActionEvent e) {}
 }

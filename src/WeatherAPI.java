@@ -1,3 +1,4 @@
+//2020113925 김영효
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -13,7 +14,7 @@ import java.net.URLEncoder;
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
 
-public class WeatherAPI {
+public class WeatherAPI extends Thread{
 	
 	public class WeatherInfo {
 		private String tag;
@@ -65,9 +66,9 @@ public class WeatherAPI {
 		if (nowHour >= 0 && nowHour < 2) { 
 			//이 경우 어제 날짜 11시의 정보를 가져와야 함
 			int dateNum = Integer.parseInt(todayDate);
-			if (dateNum % 100 == 1) // 1일인 경우
+			if (dateNum % 100 == 1) // 1월 1일
 			{
-				if (((dateNum % 10000) / 100) == 1) // 1월 1일
+				if (((dateNum % 10000) / 100) == 1) // 1�썡 1�씪
 					dateNum -= 8870;
 				else if (((dateNum % 10000) / 100) == 3) // 3월 1일 -> 2월 28일 (윤년 고려 X)
 					dateNum -= 73;
@@ -201,10 +202,13 @@ public class WeatherAPI {
 		else return "error";
 	}
 	
+	public void run() {
+		this.getINFO();
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		WeatherAPI test = new WeatherAPI();
 		System.out.println(test.getWeather());
 	}
-
 }

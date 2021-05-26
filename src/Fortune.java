@@ -1,3 +1,4 @@
+//2020113925 �迵ȿ
 
 import java.io.IOException;
 		 
@@ -7,7 +8,20 @@ import org.jsoup.Connection;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 		 
-public class Fortune {
+public class Fortune extends Thread{
+	
+	private int birth_year;
+	private String lucky;
+	
+	public Fortune() {
+		this.birth_year = 0;
+		lucky = "";
+	}
+	
+	public Fortune (int year) {
+		this.birth_year = year;
+		lucky = "";
+	}
 	
 	public String getMouse() {
 		String fortune = "";
@@ -274,6 +288,14 @@ public class Fortune {
 		else if (year % 12 == 9) return this.getSnake();
 		else if (year % 12 == 10) return this.getHorse();
 		else return this.getSheep();
+	}
+	
+	public void run() {
+		this.lucky = getFortune(this.birth_year);
+	}
+	
+	public String getLucky() {
+		return this.lucky;
 	}
 	
 	public static void main(String[] args) {
