@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -36,11 +37,14 @@ public class Login {
 		public IDExist() {
 			setTitle("Error");
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			setSize(400, 200);
+			setSize(400, 150);
 			setBackground(Color.white);
 			setLayout(new BorderLayout());
 			
-			JLabel textLabel = new JLabel("ID already exists.");
+			Font font = new Font("³ª´®¼Õ±Û¾¾ Ææ", Font.PLAIN, 30);
+			
+			JLabel textLabel = new JLabel("ÀÌ¹Ì Á¸ÀçÇÏ´Â IDÀÔ´Ï´Ù!");
+			textLabel.setFont(font);
 			textLabel.setHorizontalAlignment(JLabel.CENTER);
 			textLabel.setBackground(Color.white);
 			add(textLabel, BorderLayout.CENTER);
@@ -67,11 +71,14 @@ public class Login {
 		public LoginError() {
 			setTitle("ID or PW Error");
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			setSize(400, 200);
+			setSize(400, 150);
 			setBackground(Color.white);
 			setLayout(new BorderLayout());
 			
-			JLabel textLabel = new JLabel("No ID or wrong password.");
+			Font font = new Font("³ª´®¼Õ±Û¾¾ Ææ", Font.PLAIN, 30);
+			
+			JLabel textLabel = new JLabel("ID°¡ ¾ø°Å³ª ºñ¹Ð¹øÈ£°¡ Æ²·È¾î¿ä!");
+			textLabel.setFont(font);
 			textLabel.setHorizontalAlignment(JLabel.CENTER);
 			textLabel.setBackground(Color.white);
 			add(textLabel, BorderLayout.CENTER);
@@ -98,11 +105,14 @@ public class Login {
 		public Hi() {
 			setTitle("Hi!");
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			setSize(400, 200);
+			setSize(400, 150);
 			setBackground(Color.white);
 			setLayout(new BorderLayout());
 			
+			Font font = new Font("³ª´®¼Õ±Û¾¾ Ææ", Font.PLAIN, 30);
+			
 			JLabel textLabel = new JLabel("¾È³çÇÏ¼¼¿ä!");
+			textLabel.setFont(font);
 			textLabel.setHorizontalAlignment(JLabel.CENTER);
 			textLabel.setBackground(Color.white);
 			add(textLabel, BorderLayout.CENTER);
@@ -124,7 +134,7 @@ public class Login {
 		}
 	}
 	
-	public void sign_up (String id, String pw) {
+	public String sign_up (String id, String pw) {
 		String currentProjPath = "";
 		try {
 			currentProjPath = new File(".").getCanonicalPath();
@@ -151,8 +161,9 @@ public class Login {
 			
 			Hi hello = new Hi();
 			hello.setVisible(true);
+			return "hi";
 		}
-		
+		return "err";
 	}
 	
 	public boolean sign_in (String id, String pw) {

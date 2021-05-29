@@ -9,8 +9,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
+	
+	private boolean is_diary;
+	private boolean is_schedule;
 	// main에 모두 붙임
-	JFrame main;
+	JLabel main;
 	//////////////////////
 	JPanel OperationPanel;
 
@@ -40,11 +43,8 @@ public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 	}
 
 	public JAVAMemoCalendar() {
-		main = new JFrame("Our Calendar");
-		main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		main = new JLabel();
 		main.setSize(700, 400);
-		main.setLocationRelativeTo(null); // 가운데에 창이 뜨게 함
-		main.setResizable(false);
 
 		OperationPanel = new JPanel();
 
@@ -183,16 +183,5 @@ public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 		}
 	}
 
-	/*
-	class successWindow extends JFrame {
-		successWindow() {
-			Smilely smile = new Smilely();
-			smile.getsmile();
-			BaseballGame newgame = new BaseballGame();
-			JOptionPane.showMessageDialog(this,
-					"3 strike!" + "\n" + "Game over. You win." + "\n" + "Your Score: " + newgame.getscore() + " points.");
-		}
-	}
-	*/
 	public void actionPerformed(ActionEvent e) {}
 }
