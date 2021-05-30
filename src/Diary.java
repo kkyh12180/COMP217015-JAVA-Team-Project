@@ -5,11 +5,13 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Calendar;
 
 import javax.swing.*;
 
@@ -356,6 +358,38 @@ public class Diary extends JFrame implements ActionListener {
 			bg.add(mc_panel);
 			mc_panel.setBounds(100, 50, 700, 400);
 			
+			String SchedulePath = currentProjPath + "/dat/ScheduleData/";
+			
+			Calendar Today = Calendar.getInstance();
+			int Year = Today.get(Calendar.YEAR);
+			int Month = Today.get(Calendar.MONTH);
+			int Day = Today.get(Calendar.DATE);
+
+			int nextMonth = Month + 1;
+			int nextDay = 1;
+			
+			File f;
+			if ((Month + 1 == 1 && Day == 31) || (Month + 1 == 3 && Day == 31) || (Month + 1 == 5 && Day == 31) || (Month + 1 == 7 && Day == 31) || (Month + 1 == 8 && Day == 31) || (Month + 1 == 10 && Day == 31) || (Month + 1 == 12 && Day == 31)) {
+				f = new File(SchedulePath + Year + ((nextMonth + 1) < 10 ? "0" : "") + (nextMonth + 1) + (nextDay < 10 ? "0" : "")
+			               + nextDay + ".txt");
+				//System.out.println(SchedulePath + Year + ((nextMonth + 1) < 10 ? "0" : "") + (nextMonth + 1) + (nextDay < 10 ? "0" : "")
+			    //           + nextDay + ".txt");
+			} else if (Month + 1 == 2 && Day == 28) {
+				f = new File(SchedulePath + Year + ((nextMonth + 1) < 10 ? "0" : "") + (nextMonth + 1) + (nextDay < 10 ? "0" : "")
+			               + nextDay + ".txt");
+				//System.out.println(SchedulePath + Year + ((nextMonth + 1) < 10 ? "0" : "") + (nextMonth + 1) + (nextDay < 10 ? "0" : "")
+			    //           + nextDay + ".txt");
+			} else if ((Month + 1 == 4 && Day == 30) || (Month + 1 == 6 && Day == 30) || (Month + 1 == 9 && Day == 30) || (Month + 1 == 11 && Day == 30)) {
+				f = new File(SchedulePath + Year + ((nextMonth + 1) < 10 ? "0" : "") + (nextMonth + 1) + (nextDay < 10 ? "0" : "")
+						   + nextDay + ".txt");
+				//System.out.println(SchedulePath + Year + ((nextMonth + 1) < 10 ? "0" : "") + (nextMonth + 1) + (nextDay < 10 ? "0" : "")
+				//		   + nextDay + ".txt");
+			} else {
+				f = new File(SchedulePath + Year + ((Month + 1) < 10 ? "0" : "") + (Month + 1) + ((Day + 1) < 10 ? "0" : "")
+			               + (Day + 1) + ".txt");
+				//System.out.println(SchedulePath + Year + ((Month + 1) < 10 ? "0" : "") + (Month + 1) + ((Day + 1) < 10 ? "0" : "")
+			    //           + (Day + 1) + ".txt");
+			}
 			JPanel schedule_panel = new JPanel();
 			schedule_panel.setLayout(new BorderLayout());
 			JScrollPane scroll = new JScrollPane(schedule_area);
@@ -364,6 +398,23 @@ public class Diary extends JFrame implements ActionListener {
 			schedule_panel.add(scroll, BorderLayout.CENTER);
 			bg.add(schedule_panel);
 			schedule_panel.setBounds(100, 475, 700, 50);
+			
+			try {
+			if (f.exists()) {
+	            BufferedReader in = new BufferedReader(new FileReader(f));
+
+	            String memoAreaText = "";
+	            String str = null;
+	            while ((str = in.readLine()) != null) {
+	               memoAreaText += str + System.getProperty("line.separator");
+	            }
+	            schedule_area.setText(memoAreaText);
+	            in.close();
+	         } else
+	        	 schedule_area.setText("");
+			} catch (IOException ie) {
+				ie.printStackTrace();
+			}
 			
 			weather_btn = new JButton("weather");
 			weather_btn.setText(weather_info[0] + " " + temperature + "¡É");
@@ -492,6 +543,7 @@ public class Diary extends JFrame implements ActionListener {
 	// ÀÏÁ¤ Ã¢
 	public class schedule_panel extends JPanel implements ActionListener {
 		
+		private JAVAScheduleCalendar sc = new JAVAScheduleCalendar();
 		private JTextField phrase_area = new JTextField();
 		private JButton weather_btn;
 		private JButton covid_btn;
@@ -602,6 +654,10 @@ public class Diary extends JFrame implements ActionListener {
 			
 			String weather_info[] = wa.getWeather().split(" ");
 			int temperature = Integer.parseInt(weather_info[1]);
+			
+			JPanel scp = sc.getMain();
+			bg.add(scp);
+			scp.setBounds(100, 50, 700, 400);
 			
 			JPanel phrase_panel = new JPanel();
 			phrase_panel.setLayout(new BorderLayout());
