@@ -252,7 +252,7 @@ public class Diary extends JFrame implements ActionListener {
 			public print_fortune(int year) {
 				setTitle("Your fortune");
 				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				setSize(1600, 150);
+				setSize(1800, 150);
 				setBackground(Color.white);
 				setLayout(new BorderLayout());
 				
@@ -484,7 +484,7 @@ public class Diary extends JFrame implements ActionListener {
 	// 일정 창
 	public class schedule_panel extends JPanel implements ActionListener {
 		
-		private JTextArea phrase_area = new JTextArea();
+		private JTextField phrase_area = new JTextField();
 		private JButton weather_btn;
 		private JButton covid_btn;
 		private JButton lucky_btn;
@@ -496,7 +496,7 @@ public class Diary extends JFrame implements ActionListener {
 			public print_fortune(int year) {
 				setTitle("Your fortune");
 				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				setSize(1600, 150);
+				setSize(1800, 150);
 				setBackground(Color.white);
 				setLayout(new BorderLayout());
 				
@@ -595,11 +595,18 @@ public class Diary extends JFrame implements ActionListener {
 			String weather_info[] = wa.getWeather().split(" ");
 			int temperature = Integer.parseInt(weather_info[1]);
 			
-			JPanel schedule_panel = new JPanel();
-			schedule_panel.setLayout(new BorderLayout());
-			schedule_panel.add(phrase_area, BorderLayout.CENTER);
-			bg.add(schedule_panel);
-			schedule_panel.setBounds(100, 400, 700, 100);
+			JPanel phrase_panel = new JPanel();
+			phrase_panel.setLayout(new BorderLayout());
+			phrase_panel.add(phrase_area, BorderLayout.CENTER);
+			
+			Font gs = new Font("궁서체", Font.BOLD, 15);
+			Phrase p = new Phrase();
+			phrase_area.setText(p.getPhrase());
+			phrase_area.setFont(gs);
+			phrase_area.setHorizontalAlignment(JTextField.CENTER);
+			
+			bg.add(phrase_panel);
+			phrase_panel.setBounds(100, 400, 700, 100);
 			
 			weather_btn = new JButton("weather");
 			weather_btn.setText(weather_info[0] + " " + temperature + "℃");
