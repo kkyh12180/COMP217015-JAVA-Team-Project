@@ -66,7 +66,7 @@ public class Diary extends JFrame implements ActionListener {
 
 	}
 
-	// ·Î±×ÀÎ Ã¢
+	// ë¡œê·¸ì¸ ì°½
 	public class login_panel extends JPanel implements ActionListener {
 
 		private JTextArea IDArea;
@@ -90,7 +90,7 @@ public class Diary extends JFrame implements ActionListener {
 			add(bg);
 			bg.setBounds(-10, -20, 900, 900);
 
-			Font font = new Font("DXÀ¯´Ï°íµñ 30", Font.PLAIN, 50);
+			Font font = new Font("DXìœ ë‹ˆê³ ë”• 30", Font.PLAIN, 50);
 			
 			IDArea = new JTextArea();
 			bg.add(IDArea);
@@ -141,13 +141,13 @@ public class Diary extends JFrame implements ActionListener {
 				Login user = new Login (ID, PW);
 				
 				if (user.sign_in(ID, PW)) {
-					// ´ÙÀÌ¾î¸®·Î
+					// ë‹¤ì´ì–´ë¦¬ë¡œ
 					setVisible(false);
 					is_diary = true;
 					dp.setVisible(true);
 				}
 			} else {
-				//È¸¿ø°¡ÀÔÀ¸·Î
+				//íšŒì›ê°€ì…ìœ¼ë¡œ
 				setVisible(false);
 				sup.setVisible(true);
 			}
@@ -178,7 +178,7 @@ public class Diary extends JFrame implements ActionListener {
 			add(bg);
 			bg.setBounds(-10, -20, 900, 900);
 			
-			Font font = new Font("DXÀ¯´Ï°íµñ 30", Font.PLAIN, 50);
+			Font font = new Font("DXìœ ë‹ˆê³ ë”• 30", Font.PLAIN, 50);
 			
 			inputIDArea = new JTextArea();
 			bg.add(inputIDArea);
@@ -237,7 +237,7 @@ public class Diary extends JFrame implements ActionListener {
 		}
 	}
 	
-	// ÀÏ±â Ã¢
+	// ì¼ê¸° ì°½
 	public class diary_panel extends JPanel implements ActionListener {
 		
 		private JTextArea schedule_area = new JTextArea();
@@ -256,7 +256,7 @@ public class Diary extends JFrame implements ActionListener {
 				setBackground(Color.white);
 				setLayout(new BorderLayout());
 				
-				Font font = new Font("³ª´®¼Õ±Û¾¾ Ææ", Font.PLAIN, 25);
+				Font font = new Font("ë‚˜ëˆ”ì†ê¸€ì”¨ íœ", Font.PLAIN, 25);
 				
 				Fortune luck = new Fortune(year);
 				luck.run();
@@ -298,9 +298,9 @@ public class Diary extends JFrame implements ActionListener {
 				setBackground(Color.white);
 				setLayout(new BorderLayout());
 				
-				Font font = new Font("³ª´®¼Õ±Û¾¾ Ææ", Font.PLAIN, 30);
+				Font font = new Font("ë‚˜ëˆ”ì†ê¸€ì”¨ íœ", Font.PLAIN, 30);
 				
-				JLabel textLabel = new JLabel("³âµµ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä!");
+				JLabel textLabel = new JLabel("ë…„ë„ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”!");
 				textLabel.setFont(font);
 				textLabel.setHorizontalAlignment(JLabel.CENTER);
 				textLabel.setBackground(Color.white);
@@ -343,7 +343,7 @@ public class Diary extends JFrame implements ActionListener {
 			add(bg);
 			bg.setBounds(-10, -20, 900, 900);
 			
-			try { //Á¤º¸ °¡Á®¿À±â°¡ ³¡³¯ ¶§ ±îÁö ±â´Ù¸²
+			try { //ì •ë³´ ê°€ì ¸ì˜¤ê¸°ê°€ ëë‚  ë•Œ ê¹Œì§€ ê¸°ë‹¤ë¦¼
 				wa.join();
 				cov.join();
 			} catch (Exception e) {}
@@ -358,7 +358,7 @@ public class Diary extends JFrame implements ActionListener {
 			schedule_panel.setBounds(100, 400, 700, 100);
 			
 			weather_btn = new JButton("weather");
-			weather_btn.setText(weather_info[0] + " " + temperature + "¡É");
+			weather_btn.setText(weather_info[0] + " " + temperature + "â„ƒ");
 			weather_btn.addActionListener(this);
 			bg.add(weather_btn);
 			weather_btn.setBounds(100, 550, 200, 100);
@@ -381,25 +381,25 @@ public class Diary extends JFrame implements ActionListener {
 			
 			JButton happy_btn = new JButton("healing");
 			happy_btn.addActionListener(this);
-			happy_btn.setText("Èú¸µ");
+			happy_btn.setText("íë§");
 			bg.add(happy_btn);
 			happy_btn.setBounds(100, 800, 50, 50);
 			
 			JButton sad_btn = new JButton("study");
 			sad_btn.addActionListener(this);
-			sad_btn.setText("°øºÎ");
+			sad_btn.setText("ê³µë¶€");
 			bg.add(sad_btn);
 			sad_btn.setBounds(250, 800, 50, 50);
 			
 			JButton excited_btn = new JButton("exercise");
 			excited_btn.addActionListener(this);
-			excited_btn.setText("¿îµ¿");
+			excited_btn.setText("ìš´ë™");
 			bg.add(excited_btn);
 			excited_btn.setBounds(600, 800, 50, 50);
 			
 			JButton angry_btn = new JButton("love");
 			angry_btn.addActionListener(this);
-			angry_btn.setText("»ç¶û");
+			angry_btn.setText("ì‚¬ë‘");
 			bg.add(angry_btn);
 			angry_btn.setBounds(750, 800, 50, 50);
 			
@@ -440,7 +440,7 @@ public class Diary extends JFrame implements ActionListener {
 					print_fortune pf = new print_fortune(Integer.parseInt(year.getText()));
 					pf.setVisible(true);
 				}
-			} else if (command.equals("Èú¸µ"))  {
+			} else if (command.equals("íë§"))  {
 				try {
 					 Desktop.getDesktop().browse(new URI("https://www.melon.com/dj/tag/djtaghub_list.htm?tagSeq=5"));
 				 } catch (IOException a) {
@@ -448,7 +448,7 @@ public class Diary extends JFrame implements ActionListener {
 				 } catch (URISyntaxException a) {
 					 a.printStackTrace();
 				 }
-			} else if (command.equals("°øºÎ"))  {
+			} else if (command.equals("ê³µë¶€"))  {
 				try {
 					 Desktop.getDesktop().browse(new URI("https://www.melon.com/dj/tag/djtaghub_list.htm?tagSeq=365"));
 				 } catch (IOException a) {
@@ -456,7 +456,7 @@ public class Diary extends JFrame implements ActionListener {
 				 } catch (URISyntaxException a) {
 					 a.printStackTrace();
 				 }
-			} else if (command.equals("¿îµ¿"))  {
+			} else if (command.equals("ìš´ë™"))  {
 				try {
 					 Desktop.getDesktop().browse(new URI("https://www.melon.com/dj/tag/djtaghub_list.htm?tagSeq=19"));
 				 } catch (IOException a) {
@@ -464,7 +464,7 @@ public class Diary extends JFrame implements ActionListener {
 				 } catch (URISyntaxException a) {
 					 a.printStackTrace();
 				 }
-			} else if (command.equals("»ç¶û"))  {
+			} else if (command.equals("ì‚¬ë‘"))  {
 				try {
 					 Desktop.getDesktop().browse(new URI("https://www.melon.com/dj/tag/djtaghub_list.htm?tagSeq=6"));
 				 } catch (IOException a) {
@@ -481,9 +481,10 @@ public class Diary extends JFrame implements ActionListener {
 		}
 	}
 
-	// ÀÏÁ¤ Ã¢
+	// ì¼ì • ì°½
 	public class schedule_panel extends JPanel implements ActionListener {
 		
+		private JAVAMemoCalendar mc = new JAVAMemoCalendar();
 		private JTextField phrase_area = new JTextField();
 		private JButton weather_btn;
 		private JButton covid_btn;
@@ -500,7 +501,7 @@ public class Diary extends JFrame implements ActionListener {
 				setBackground(Color.white);
 				setLayout(new BorderLayout());
 				
-				Font font = new Font("³ª´®¼Õ±Û¾¾ Ææ", Font.PLAIN, 25);
+				Font font = new Font("ë‚˜ëˆ”ì†ê¸€ì”¨ íœ", Font.PLAIN, 25);
 				
 				Fortune luck = new Fortune(year);
 				luck.run();
@@ -542,9 +543,9 @@ public class Diary extends JFrame implements ActionListener {
 				setBackground(Color.white);
 				setLayout(new BorderLayout());
 				
-				Font font = new Font("³ª´®¼Õ±Û¾¾ Ææ", Font.PLAIN, 30);
+				Font font = new Font("ë‚˜ëˆ”ì†ê¸€ì”¨ íœ", Font.PLAIN, 30);
 				
-				JLabel textLabel = new JLabel("³âµµ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä!");
+				JLabel textLabel = new JLabel("ë…„ë„ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”!");
 				textLabel.setFont(font);
 				textLabel.setHorizontalAlignment(JLabel.CENTER);
 				textLabel.setBackground(Color.white);
@@ -587,7 +588,7 @@ public class Diary extends JFrame implements ActionListener {
 			add(bg);
 			bg.setBounds(-10, -20, 900, 900);
 			
-			try { //Á¤º¸ °¡Á®¿À±â°¡ ³¡³¯ ¶§ ±îÁö ±â´Ù¸²
+			try { //ì •ë³´ ê°€ì ¸ì˜¤ê¸°ê°€ ëë‚  ë•Œ ê¹Œì§€ ê¸°ë‹¤ë¦¼
 				wa.join();
 				cov.join();
 			} catch (Exception e) {}
@@ -595,21 +596,25 @@ public class Diary extends JFrame implements ActionListener {
 			String weather_info[] = wa.getWeather().split(" ");
 			int temperature = Integer.parseInt(weather_info[1]);
 			
+			JPanel mc_panel = mc.getMain();
+			bg.add(mc_panel);
+			mc_panel.setBounds(100, 50, 700, 400);
+			
 			JPanel phrase_panel = new JPanel();
 			phrase_panel.setLayout(new BorderLayout());
 			phrase_panel.add(phrase_area, BorderLayout.CENTER);
 			
-			Font gs = new Font("±Ã¼­Ã¼", Font.BOLD, 15);
+			Font gs = new Font("ê¶ì„œì²´", Font.BOLD, 15);
 			Phrase p = new Phrase();
 			phrase_area.setText(p.getPhrase());
 			phrase_area.setFont(gs);
 			phrase_area.setHorizontalAlignment(JTextField.CENTER);
 			
 			bg.add(phrase_panel);
-			phrase_panel.setBounds(100, 400, 700, 100);
+			phrase_panel.setBounds(100, 475, 700, 50);
 			
 			weather_btn = new JButton("weather");
-			weather_btn.setText(weather_info[0] + " " + temperature + "¡É");
+			weather_btn.setText(weather_info[0] + " " + temperature + "â„ƒ");
 			weather_btn.addActionListener(this);
 			bg.add(weather_btn);
 			weather_btn.setBounds(100, 550, 200, 100);
@@ -632,25 +637,25 @@ public class Diary extends JFrame implements ActionListener {
 			
 			JButton happy_btn = new JButton("healing");
 			happy_btn.addActionListener(this);
-			happy_btn.setText("Èú¸µ");
+			happy_btn.setText("íë§");
 			bg.add(happy_btn);
 			happy_btn.setBounds(100, 800, 50, 50);
 			
 			JButton sad_btn = new JButton("study");
 			sad_btn.addActionListener(this);
-			sad_btn.setText("°øºÎ");
+			sad_btn.setText("ê³µë¶€");
 			bg.add(sad_btn);
 			sad_btn.setBounds(250, 800, 50, 50);
 			
 			JButton excited_btn = new JButton("exercise");
 			excited_btn.addActionListener(this);
-			excited_btn.setText("¿îµ¿");
+			excited_btn.setText("ìš´ë™");
 			bg.add(excited_btn);
 			excited_btn.setBounds(600, 800, 50, 50);
 			
 			JButton angry_btn = new JButton("love");
 			angry_btn.addActionListener(this);
-			angry_btn.setText("»ç¶û");
+			angry_btn.setText("ì‚¬ë‘");
 			bg.add(angry_btn);
 			angry_btn.setBounds(750, 800, 50, 50);
 			
@@ -691,7 +696,7 @@ public class Diary extends JFrame implements ActionListener {
 					print_fortune pf = new print_fortune(Integer.parseInt(year.getText()));
 					pf.setVisible(true);
 				}
-			} else if (command.equals("Èú¸µ"))  {
+			} else if (command.equals("íë§"))  {
 				try {
 					 Desktop.getDesktop().browse(new URI("https://www.melon.com/dj/tag/djtaghub_list.htm?tagSeq=5"));
 				 } catch (IOException a) {
@@ -699,7 +704,7 @@ public class Diary extends JFrame implements ActionListener {
 				 } catch (URISyntaxException a) {
 					 a.printStackTrace();
 				 }
-			} else if (command.equals("°øºÎ"))  {
+			} else if (command.equals("ê³µë¶€"))  {
 				try {
 					 Desktop.getDesktop().browse(new URI("https://www.melon.com/dj/tag/djtaghub_list.htm?tagSeq=365"));
 				 } catch (IOException a) {
@@ -707,7 +712,7 @@ public class Diary extends JFrame implements ActionListener {
 				 } catch (URISyntaxException a) {
 					 a.printStackTrace();
 				 }
-			} else if (command.equals("¿îµ¿"))  {
+			} else if (command.equals("ìš´ë™"))  {
 				try {
 					 Desktop.getDesktop().browse(new URI("https://www.melon.com/dj/tag/djtaghub_list.htm?tagSeq=19"));
 				 } catch (IOException a) {
@@ -715,7 +720,7 @@ public class Diary extends JFrame implements ActionListener {
 				 } catch (URISyntaxException a) {
 					 a.printStackTrace();
 				 }
-			} else if (command.equals("»ç¶û"))  {
+			} else if (command.equals("ì‚¬ë‘"))  {
 				try {
 					 Desktop.getDesktop().browse(new URI("https://www.melon.com/dj/tag/djtaghub_list.htm?tagSeq=6"));
 				 } catch (IOException a) {
