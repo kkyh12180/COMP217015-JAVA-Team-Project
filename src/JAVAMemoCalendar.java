@@ -11,17 +11,17 @@ import java.util.Date;
 
 public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 
-	// main에 모두 붙임
-	JFrame main;
+	
 	// JPanel main;
 	//////////////////////
-	JPanel OperationPanel;
+	private JPanel main = new JPanel();
+	private JPanel OperationPanel;
 
-	JLabel TodayLabel;
-	JButton DMonBtn; // ◀
-	JButton UMonBtn; // ▶
-	JLabel MMYYYYToday;
-	OperationBtnListener BtnListener1 = new OperationBtnListener();
+	private JLabel TodayLabel;
+	private JButton DMonBtn; // ◀
+	private JButton UMonBtn; // ▶
+	private JLabel MMYYYYToday;
+	private OperationBtnListener BtnListener1 = new OperationBtnListener();
 
 	///////////////////////////
 
@@ -29,24 +29,23 @@ public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 
 	//////////////////////////
 
-	JPanel CalendarPanel;
-	JButton YOIL[];
-	JButton DateBtns[][] = new JButton[6][7];
-	DateBtnListener BtnListener2 = new DateBtnListener();
+	private JPanel CalendarPanel;
+	private JButton YOIL[];
+	private JButton DateBtns[][] = new JButton[6][7];
+	private DateBtnListener BtnListener2 = new DateBtnListener();
 	/////////////////////////////
 
-	JLabel status = new JLabel("OK.");
+	private JLabel status = new JLabel("OK.");
 
 	/////////////////////////
 
-	JTextArea Diary = new JTextArea();
-	JLabel Datedate = new JLabel(); // 오늘 날짜(선택된 날짜)
+	private JTextArea Diary = new JTextArea();
+	private JLabel Datedate = new JLabel(); // 오늘 날짜(선택된 날짜)
 
 	/////////////////////////
-	Font font1 = new Font("DX영화자막 M", Font.PLAIN, 15);
-
-	Font font2 = new Font("DX영화자막 M", Font.PLAIN, 25);
-	Font font3 = new Font("DX영화자막 M", Font.PLAIN, 20);
+	private Font font1 = new Font("DX영화자막 M", Font.PLAIN, 15);
+	private Font font2 = new Font("DX영화자막 M", Font.PLAIN, 25);
+	private Font font3 = new Font("DX영화자막 M", Font.PLAIN, 20);
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -57,14 +56,7 @@ public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 	}
 
 	public JAVAMemoCalendar() {
-		main = new JFrame("Our Calendar");
-		main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		main.setSize(700, 400);
-		main.setLocationRelativeTo(null); // 가운데에 창이 뜨게 함
-		main.setResizable(false);
-
-		main.getContentPane().setBackground(Color.WHITE);
-
 		OperationPanel = new JPanel();
 
 		TodayLabel = new JLabel(Today.get(Calendar.YEAR) + "/" + Today.get((Calendar.MONTH) + 1) + "/"
@@ -213,23 +205,30 @@ public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 
 	private void readMemo() {
 		try {
-			File f = new File("MemoData/" + Year + ((Month + 1) < 10 ? "0" : "") + (Month + 1) + (Day < 10 ? "0" : "")
+			String currentProjPath = "";
+			try {
+				currentProjPath = new File(".").getCanonicalPath();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String currentFilePath = currentProjPath + "/dat/MemoData/";
+			
+			File f = new File(currentFilePath + Year + ((Month + 1) < 10 ? "0" : "") + (Month + 1) + (Day < 10 ? "0" : "")
 					+ Day + ".txt");
 
 			// for test
+			System.out.println(currentFilePath + Year + ((Month + 1) < 10 ? "0" : "") + (Month + 1) + (Day < 10 ? "0" : "")
+					+ Day + ".txt");
 			System.out.println(f.exists());
 
 			if (f.exists()) {
 
-				BufferedReader in = new BufferedReader(new FileReader("MemoData/" + Year + ((Month + 1) < 10 ? "0" : "")
-						+ (Month + 1) + (Day < 10 ? "0" : "") + Day + ".txt"));
+				BufferedReader in = new BufferedReader(new FileReader(f));
 
-				String memoAreaText = new String();
-				while (true) {
-					String tempStr = in.readLine();
-					if (tempStr == null)
-						break;
-					memoAreaText = memoAreaText + tempStr + System.getProperty("line.separator");
+				String memoAreaText = "";
+				String str = null;
+				while ((str = in.readLine()) != null) {
+					memoAreaText += str + System.getProperty("line.separator");
 				}
 				Diary.setText(memoAreaText);
 				in.close();
@@ -283,13 +282,14 @@ public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 
 	}
 
-	class newWindow extends JFrame {
+	private class newWindow extends JFrame {
 		newWindow() {
 			// 일기장 프레임 (메인 프레임)
 			setTitle((Month + 1) + "/" + Day + "'s Schedule");
 			setLayout(null);
 			setSize(700, 700);
 			setVisible(true);
+			setResizable(false);
 
 			JLabel main = new JLabel();
 			add(main);
@@ -320,7 +320,7 @@ public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 			JPanel diarypanel = new JPanel();
 			diarypanel.setLayout(new BorderLayout());
 
-			JTextArea Diary = new JTextArea(20, 20);
+			Diary = new JTextArea(20, 20);
 			Diary.setFont(font2);
 			Diary.setLineWrap(true); // 자동 줄바꿈
 			Diary.setWrapStyleWord(true);
@@ -362,8 +362,16 @@ public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 
 			deleteBtn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					String currentProjPath = "";
+					try {
+						currentProjPath = new File(".").getCanonicalPath();
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+					
+					String currentFilePath = currentProjPath + "/dat/MemoData/";
 					Diary.setText("");
-					File f = new File("MemoData/" + Year + ((Month + 1) < 10 ? "0" : "") + (Month + 1)
+					File f = new File(currentFilePath + Year + ((Month + 1) < 10 ? "0" : "") + (Month + 1)
 							+ (Day < 10 ? "0" : "") + Day + ".txt");
 					if (f.exists()) {
 						f.delete();
@@ -375,16 +383,21 @@ public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 
 			saveBtn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					String currentProjPath = "";
 					try {
-						File f = new File("MemoData");
-						if (!f.isDirectory())
-							f.mkdir();
-
+						currentProjPath = new File(".").getCanonicalPath();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					String currentFilePath = currentProjPath + "/dat/MemoData/";
+					try {
 						String memo = Diary.getText();
+						
 						if (memo.length() > 0) {
 							BufferedWriter out = new BufferedWriter(
-									new FileWriter("MemoData/" + Year + ((Month + 1) < 10 ? "0" : "") + (Month + 1)
-											+ (Day < 10 ? "0" : "") + Day + ".txt"));
+									new FileWriter(
+											new File(currentFilePath + Year + ((Month + 1) < 10 ? "0" : "") + (Month + 1)
+													+ (Day < 10 ? "0" : "") + Day + ".txt")));
 							String str = Diary.getText();
 							out.write(str);
 							out.close();
@@ -406,6 +419,10 @@ public class JAVAMemoCalendar extends JAVACalendar implements ActionListener {
 		}
 	}
 
+	public JPanel getMain() {
+		return this.main;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
