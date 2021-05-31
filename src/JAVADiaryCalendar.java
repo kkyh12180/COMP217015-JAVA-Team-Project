@@ -40,6 +40,7 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 	private JTextArea Diary = new JTextArea();
 	private JLabel Datedate = new JLabel(); // 오늘 날짜(선택된 날짜)
 
+	Happiness_Today now_Happiness;
 	/////////////////////////
 	private Font font1 = new Font("DX영화자막 M", Font.PLAIN, 15);
 	private Font font2 = new Font("DX영화자막 M", Font.PLAIN, 25);
@@ -55,20 +56,19 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 
 	public JAVADiaryCalendar() {
 		main.setSize(700, 400);
-		//main.setOpaque(false);
-		
+		// main.setOpaque(false);
+
 		String currentProPath = "";
 		try {
 			currentProPath = new File(".").getCanonicalPath();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		String innerdiarypath = currentProPath + "/src/Img/inner1.jpg";
 		ImageIcon innerdiary = new ImageIcon(innerdiarypath);
 		main.setIcon(innerdiary);
-		//inner.setBounds(100,50,700,400);
-		
+
 		OperationPanel = new JPanel();
 
 		TodayLabel = new JLabel(Today.get(Calendar.YEAR) + "/" + Today.get((Calendar.MONTH) + 1) + "/"
@@ -90,7 +90,7 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 		OperationPanel.add(MMYYYYToday);
 		OperationPanel.add(UMonBtn);
 		OperationPanel.setOpaque(false);
-		
+
 		CalendarPanel = new JPanel();
 		YOIL = new JButton[7];
 
@@ -169,30 +169,6 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 				DateBtns[i][j].removeAll();
 				DateBtns[i][j].setBackground(Color.white);
 
-				// 파일이 있는지 없는지 확인 한 후 색 바뀌게 (기본은 하얀색)
-
-				Color yellow = new Color(255, 245, 110);
-				Color pink = new Color(255, 230, 235);
-				Color blue = new Color(160, 209, 247);
-				Color violet = new Color(190, 205, 255);
-				Color green = new Color(201, 239, 69);
-				// dateBtn색넣기
-
-				/*
-				 * if (Dates[i][j] == 1 || Dates[i][j] == 6 || Dates[i][j] == 11 || Dates[i][j]
-				 * == 16 || Dates[i][j] == 21 || Dates[i][j] == 26 || Dates[i][j] == 31) {
-				 * DateBtns[i][j].setBackground(yellow); } else if (Dates[i][j] == 2 ||
-				 * Dates[i][j] == 7 || Dates[i][j] == 12 || Dates[i][j] == 17 || Dates[i][j] ==
-				 * 22 || Dates[i][j] == 27) { DateBtns[i][j].setBackground(blue); } else if
-				 * (Dates[i][j] == 3 || Dates[i][j] == 8 || Dates[i][j] == 13 || Dates[i][j] ==
-				 * 18 || Dates[i][j] == 23 || Dates[i][j] == 28) {
-				 * DateBtns[i][j].setBackground(pink); } else if (Dates[i][j] == 4 ||
-				 * Dates[i][j] == 9 || Dates[i][j] == 14 || Dates[i][j] == 19 || Dates[i][j] ==
-				 * 24 || Dates[i][j] == 29) { DateBtns[i][j].setBackground(violet); } else if
-				 * (Dates[i][j] == 5 || Dates[i][j] == 10 || Dates[i][j] == 15 || Dates[i][j] ==
-				 * 20 || Dates[i][j] == 25 || Dates[i][j] == 30) {
-				 * DateBtns[i][j].setBackground(green); }
-				 */
 				DateBtns[i][j].setBackground(Color.WHITE);
 				if (Dates[i][j] == 0)
 					DateBtns[i][j].setVisible(false);
@@ -291,7 +267,7 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 	private class newWindow extends JFrame {
 		newWindow() {
 			// 일기장 프레임 (메인 프레임)
-			setTitle((Month + 1) + "/" + Day + "'s Schedule");
+			setTitle((Month + 1) + "/" + Day + "'s Diary");
 			setLayout(null);
 			setSize(700, 700);
 			setVisible(true);
@@ -299,25 +275,19 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 
 			JLabel main = new JLabel();
 			add(main);
-			
+
 			String currentProjPath = "";
 			try {
 				currentProjPath = new File(".").getCanonicalPath();
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
-			String diarylinepath = currentProjPath + "/src/img/diary.jpg";
-			
+			String diarylinepath = currentProjPath + "/src/img/filldiary.jpg";
+
 			ImageIcon diaryicon = new ImageIcon(diarylinepath);
 			main.setIcon(diaryicon);
-			
-			
+
 			main.setBounds(0, 0, 700, 700);
-			
-			
-			
-			
-			
 
 			// 날짜가 나오는 패널
 			JPanel datepanel = new JPanel();
@@ -325,7 +295,7 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 			datepanel.setOpaque(false);
 
 			JLabel Datedate; // 오늘 날짜(선택된 날짜)
-			Datedate = new JLabel(Year + "/" + (Month + 1) + "/" + Day);
+			Datedate = new JLabel(Year + " . " + (Month + 1) + " . " + Day + "의 일기");
 			Datedate.setHorizontalAlignment(JLabel.CENTER);
 			Datedate.setFont(font2);
 			datepanel.add(Datedate, BorderLayout.CENTER);
@@ -335,6 +305,11 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 			// 감정이 나오는 패널
 			JPanel emotionpanel = new JPanel();
 			emotionpanel.setLayout(new BorderLayout());
+
+			emotionpanel.setBounds(100, 100, 500, 50);
+			
+			now_Happiness = new Happiness_Today(now_Happiness);
+			now_Happiness.view();
 
 			JButton emotion = new JButton();
 			emotionpanel.add(emotion, BorderLayout.CENTER);

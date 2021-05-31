@@ -1,6 +1,6 @@
 /***
  * Today's Happiness
- * 2020115001 È«¼ÛÀº
+ * 2020115001 
  * 
  */
 import java.awt.EventQueue;
@@ -82,7 +82,7 @@ public class Happiness_Today extends JFrame{
             public void mouseDragged(MouseEvent e) 
             {
                
-               // °¨Á¤ °ª
+               // çš‘æ²¥ è”¼
                tmpX = e.getX();
                if (tmpX < 12)
                   imgX = 12;
@@ -125,5 +125,5 @@ public class Happiness_Today extends JFrame{
       panel.setLayout(null);
    }
    
-   // °¨Á¤ ¼öÄ¡ ´©Àû class
+   // çš‘æ²¥ èæ‘¹ ç©¿åˆ© class
 }
