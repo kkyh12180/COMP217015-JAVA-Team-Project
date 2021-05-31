@@ -11,10 +11,8 @@ import java.util.Date;
 
 public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 
-	
-	// JPanel main;
-	//////////////////////
-	private JPanel main = new JPanel();
+	private JLabel main = new JLabel();
+
 	private JPanel OperationPanel;
 
 	private JLabel TodayLabel;
@@ -57,6 +55,20 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 
 	public JAVADiaryCalendar() {
 		main.setSize(700, 400);
+		//main.setOpaque(false);
+		
+		String currentProPath = "";
+		try {
+			currentProPath = new File(".").getCanonicalPath();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		String innerdiarypath = currentProPath + "/src/Img/inner1.jpg";
+		ImageIcon innerdiary = new ImageIcon(innerdiarypath);
+		main.setIcon(innerdiary);
+		//inner.setBounds(100,50,700,400);
+		
 		OperationPanel = new JPanel();
 
 		TodayLabel = new JLabel(Today.get(Calendar.YEAR) + "/" + Today.get((Calendar.MONTH) + 1) + "/"
@@ -77,7 +89,8 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 		OperationPanel.add(DMonBtn);
 		OperationPanel.add(MMYYYYToday);
 		OperationPanel.add(UMonBtn);
-
+		OperationPanel.setOpaque(false);
+		
 		CalendarPanel = new JPanel();
 		YOIL = new JButton[7];
 
@@ -110,6 +123,7 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 
 		CalendarPanel.setLayout(new GridLayout(0, 7, 1, 1));
 		CalendarPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+		CalendarPanel.setOpaque(false);
 		visibleCal();
 
 		main.setLayout(new BorderLayout());
@@ -128,13 +142,6 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		JLabel bg = new JLabel();
-		JLabel bg2 = new JLabel();
-		String buttonPath = currentProPath + "/src/" + "imsi8.jpg";
-		String buttonPath2 = currentProPath + "/src/c2.jpg";
-		ImageIcon button = new ImageIcon(buttonPath);
-		ImageIcon button2 = new ImageIcon(buttonPath2);
 
 		String s;
 		Color fontcolor;
@@ -171,23 +178,22 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 				Color green = new Color(201, 239, 69);
 				// dateBtn색넣기
 
-				if (Dates[i][j] == 1 || Dates[i][j] == 6 || Dates[i][j] == 11 || Dates[i][j] == 16 || Dates[i][j] == 21
-						|| Dates[i][j] == 26 || Dates[i][j] == 31) {
-					DateBtns[i][j].setBackground(yellow);
-				} else if (Dates[i][j] == 2 || Dates[i][j] == 7 || Dates[i][j] == 12 || Dates[i][j] == 17
-						|| Dates[i][j] == 22 || Dates[i][j] == 27) {
-					DateBtns[i][j].setBackground(blue);
-				} else if (Dates[i][j] == 3 || Dates[i][j] == 8 || Dates[i][j] == 13 || Dates[i][j] == 18
-						|| Dates[i][j] == 23 || Dates[i][j] == 28) {
-					DateBtns[i][j].setBackground(pink);
-				} else if (Dates[i][j] == 4 || Dates[i][j] == 9 || Dates[i][j] == 14 || Dates[i][j] == 19
-						|| Dates[i][j] == 24 || Dates[i][j] == 29) {
-					DateBtns[i][j].setBackground(violet);
-				} else if (Dates[i][j] == 5 || Dates[i][j] == 10 || Dates[i][j] == 15 || Dates[i][j] == 20
-						|| Dates[i][j] == 25 || Dates[i][j] == 30) {
-					DateBtns[i][j].setBackground(green);
-				}
-
+				/*
+				 * if (Dates[i][j] == 1 || Dates[i][j] == 6 || Dates[i][j] == 11 || Dates[i][j]
+				 * == 16 || Dates[i][j] == 21 || Dates[i][j] == 26 || Dates[i][j] == 31) {
+				 * DateBtns[i][j].setBackground(yellow); } else if (Dates[i][j] == 2 ||
+				 * Dates[i][j] == 7 || Dates[i][j] == 12 || Dates[i][j] == 17 || Dates[i][j] ==
+				 * 22 || Dates[i][j] == 27) { DateBtns[i][j].setBackground(blue); } else if
+				 * (Dates[i][j] == 3 || Dates[i][j] == 8 || Dates[i][j] == 13 || Dates[i][j] ==
+				 * 18 || Dates[i][j] == 23 || Dates[i][j] == 28) {
+				 * DateBtns[i][j].setBackground(pink); } else if (Dates[i][j] == 4 ||
+				 * Dates[i][j] == 9 || Dates[i][j] == 14 || Dates[i][j] == 19 || Dates[i][j] ==
+				 * 24 || Dates[i][j] == 29) { DateBtns[i][j].setBackground(violet); } else if
+				 * (Dates[i][j] == 5 || Dates[i][j] == 10 || Dates[i][j] == 15 || Dates[i][j] ==
+				 * 20 || Dates[i][j] == 25 || Dates[i][j] == 30) {
+				 * DateBtns[i][j].setBackground(green); }
+				 */
+				DateBtns[i][j].setBackground(Color.WHITE);
 				if (Dates[i][j] == 0)
 					DateBtns[i][j].setVisible(false);
 				else
@@ -212,13 +218,13 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 				e.printStackTrace();
 			}
 			String currentFilePath = currentProjPath + "/dat/DiaryData/";
-			
-			File f = new File(currentFilePath + Year + ((Month + 1) < 10 ? "0" : "") + (Month + 1) + (Day < 10 ? "0" : "")
-					+ Day + ".txt");
+
+			File f = new File(currentFilePath + Year + ((Month + 1) < 10 ? "0" : "") + (Month + 1)
+					+ (Day < 10 ? "0" : "") + Day + ".txt");
 
 			// for test
-			System.out.println(currentFilePath + Year + ((Month + 1) < 10 ? "0" : "") + (Month + 1) + (Day < 10 ? "0" : "")
-					+ Day + ".txt");
+			System.out.println(currentFilePath + Year + ((Month + 1) < 10 ? "0" : "") + (Month + 1)
+					+ (Day < 10 ? "0" : "") + Day + ".txt");
 			System.out.println(f.exists());
 
 			if (f.exists()) {
@@ -293,11 +299,30 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 
 			JLabel main = new JLabel();
 			add(main);
+			
+			String currentProjPath = "";
+			try {
+				currentProjPath = new File(".").getCanonicalPath();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+			String diarylinepath = currentProjPath + "/src/img/diary.jpg";
+			
+			ImageIcon diaryicon = new ImageIcon(diarylinepath);
+			main.setIcon(diaryicon);
+			
+			
 			main.setBounds(0, 0, 700, 700);
+			
+			
+			
+			
+			
 
 			// 날짜가 나오는 패널
 			JPanel datepanel = new JPanel();
 			datepanel.setLayout(new BorderLayout());
+			datepanel.setOpaque(false);
 
 			JLabel Datedate; // 오늘 날짜(선택된 날짜)
 			Datedate = new JLabel(Year + "/" + (Month + 1) + "/" + Day);
@@ -324,9 +349,9 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 			Diary.setFont(font2);
 			Diary.setLineWrap(true); // 자동 줄바꿈
 			Diary.setWrapStyleWord(true);
-			//스크롤 넣기
+			// 스크롤 넣기
 			JScrollPane scroll = new JScrollPane(Diary);
-			//scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+			// scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 			scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			diarypanel.add(scroll);
 			main.add(diarypanel);
@@ -355,9 +380,10 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 			BtnPanel.add(deleteBtn);
 			BtnPanel.add(saveBtn);
 			BtnPanel.add(resetBtn);
-			
+
 			main.add(BtnPanel);
 
+			BtnPanel.setOpaque(false);
 			BtnPanel.setBounds(100, 600, 500, 50);
 
 			deleteBtn.addActionListener(new ActionListener() {
@@ -368,7 +394,7 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 					} catch (IOException ex) {
 						ex.printStackTrace();
 					}
-					
+
 					String currentFilePath = currentProjPath + "/dat/DiaryData/";
 					Diary.setText("");
 					File f = new File(currentFilePath + Year + ((Month + 1) < 10 ? "0" : "") + (Month + 1)
@@ -392,12 +418,11 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 					String currentFilePath = currentProjPath + "/dat/DiaryData/";
 					try {
 						String memo = Diary.getText();
-						
+
 						if (memo.length() > 0) {
 							BufferedWriter out = new BufferedWriter(
-									new FileWriter(
-											new File(currentFilePath + Year + ((Month + 1) < 10 ? "0" : "") + (Month + 1)
-													+ (Day < 10 ? "0" : "") + Day + ".txt")));
+									new FileWriter(new File(currentFilePath + Year + ((Month + 1) < 10 ? "0" : "")
+											+ (Month + 1) + (Day < 10 ? "0" : "") + Day + ".txt")));
 							String str = Diary.getText();
 							out.write(str);
 							out.close();
@@ -419,10 +444,10 @@ public class JAVADiaryCalendar extends JAVACalendar implements ActionListener {
 		}
 	}
 
-	public JPanel getMain() {
+	public JLabel getMain() {
 		return this.main;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

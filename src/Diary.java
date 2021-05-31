@@ -27,6 +27,9 @@ public class Diary extends JFrame implements ActionListener {
 	
 	public static final int BOUND = 900;
 	
+	Font font4 = new Font("양라벨도트고딕", Font.PLAIN, 30);
+	
+	
 	public Diary() {
 		setTitle("My Diary");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,6 +37,17 @@ public class Diary extends JFrame implements ActionListener {
 		setBackground(Color.blue);
 		setResizable(false);
 		setLayout(null);
+//		
+//		//희정 추가
+//		JLabel Idlabel = new JLabel("ID");
+//		add(Idlabel);
+//		Idlabel.setVisible(true);
+//		Idlabel.setBounds(108, 520, 100, 100);
+//		
+//		
+//		JLabel Pslabel = new JLabel("PW");
+//		Pslabel.setVisible(true);
+		
 
 		// Test Login Panel
 		lp = new login_panel();
@@ -86,7 +100,8 @@ public class Diary extends JFrame implements ActionListener {
 			}
 
 			JLabel bg = new JLabel();
-			String LoginGIFPath = currentProjPath + "/src/img/login_page.gif";
+			
+			String LoginGIFPath = currentProjPath + "/src/img/Main.gif";
 			ImageIcon Login = new ImageIcon(LoginGIFPath);
 			bg.setIcon(Login);
 			add(bg);
@@ -174,7 +189,7 @@ public class Diary extends JFrame implements ActionListener {
 			}
 			
 			JLabel bg = new JLabel();
-			String Sign_up_BG_Path = currentProjPath + "/src/img/Sign_up_BG.jpg";
+			String Sign_up_BG_Path = currentProjPath + "/src/img/signup2.jpg";
 			ImageIcon Login = new ImageIcon(Sign_up_BG_Path);
 			bg.setIcon(Login);
 			add(bg);
@@ -250,6 +265,7 @@ public class Diary extends JFrame implements ActionListener {
 		private JButton sche_btn;
 		private JTextField year = new JTextField();
 		
+		//운세 출력하는 페이지
 		public class print_fortune extends JFrame implements ActionListener {
 			
 			public print_fortune(int year) {
@@ -292,6 +308,7 @@ public class Diary extends JFrame implements ActionListener {
 			}
 		}
 		
+		//운세 오류 페이지
 		public class InputError extends JFrame implements ActionListener {
 			
 			public InputError() {
@@ -326,15 +343,12 @@ public class Diary extends JFrame implements ActionListener {
 			}
 		}
 		
+		//일기용(1)페이지
 		public diary_panel() {
 			setSize(BOUND, BOUND);
 			setLayout(null);
 
-			WeatherAPI wa = new WeatherAPI();
-			wa.start();
-			Covid_19 cov = new Covid_19();
-			cov.start();
-			
+
 			String currentProjPath = "";
 			try {
 				currentProjPath = new File(".").getCanonicalPath();
@@ -342,7 +356,17 @@ public class Diary extends JFrame implements ActionListener {
 				e.printStackTrace();
 			}
 			
+			WeatherAPI wa = new WeatherAPI();
+			wa.start();
+			Covid_19 cov = new Covid_19();
+			cov.start();
+			
+			
 			JLabel bg = new JLabel();
+			//일기패널 배경 넣기
+			String DiaryPath = currentProjPath + "/src/img/calendarresult.gif";
+			ImageIcon Diary = new ImageIcon(DiaryPath);
+			bg.setIcon(Diary);
 			add(bg);
 			bg.setBounds(-10, -20, 900, 900);
 			
@@ -354,9 +378,9 @@ public class Diary extends JFrame implements ActionListener {
 			String weather_info[] = wa.getWeather().split(" ");
 			int temperature = Integer.parseInt(weather_info[1]);
 			
-			JPanel mc_panel = mc.getMain();
-			bg.add(mc_panel);
-			mc_panel.setBounds(100, 50, 700, 400);
+			JLabel mc_Label = mc.getMain();
+			bg.add(mc_Label);
+			mc_Label.setBounds(100, 50, 700, 400);
 			
 			String SchedulePath = currentProjPath + "/dat/ScheduleData/";
 			
@@ -417,26 +441,46 @@ public class Diary extends JFrame implements ActionListener {
 			}
 			
 			weather_btn = new JButton("weather");
+			weather_btn.setBackground(Color.white);
 			weather_btn.setText(weather_info[0] + " " + temperature + "℃");
 			weather_btn.addActionListener(this);
+			weather_btn.setFont(font4);
+			weather_btn.setOpaque(false);
+
 			bg.add(weather_btn);
 			weather_btn.setBounds(100, 550, 200, 100);
 			
+			
 			covid_btn = new JButton("covid");
+			covid_btn.setOpaque(false);
 			covid_btn.addActionListener(this);
+			covid_btn.setBackground(Color.white);
 			covid_btn.setText(Integer.toString(cov.getDecide()));
+			covid_btn.setFont(font4);
 			bg.add(covid_btn);
 			covid_btn.setBounds(350, 550, 200, 100);
 			
 			lucky_btn = new JButton("lucky");
 			lucky_btn.addActionListener(this);
+			lucky_btn.setBackground(Color.WHITE);
+			lucky_btn.setOpaque(false);
 			lucky_btn.setText("");
 			lucky_btn.add(year);
-			year.setOpaque(false);
+			
 			year.setBorder(BorderFactory.createEmptyBorder());
 			year.setHorizontalAlignment(JTextField.CENTER);
+			year.setFont(font4);	
+
 			bg.add(lucky_btn);
 			lucky_btn.setBounds(600, 550, 200, 100);
+			
+			
+		      String currentProPath = "";
+		      try {
+		         currentProPath = new File(".").getCanonicalPath();
+		      } catch (IOException e) {
+		         e.printStackTrace();
+		      }
 			
 			JButton happy_btn = new JButton("healing");
 			happy_btn.addActionListener(this);
@@ -452,13 +496,18 @@ public class Diary extends JFrame implements ActionListener {
 			
 			JButton excited_btn = new JButton("exercise");
 			excited_btn.addActionListener(this);
-			excited_btn.setText("운동");
+			excited_btn.setText("운동");			
 			bg.add(excited_btn);
 			excited_btn.setBounds(600, 800, 50, 50);
 			
 			JButton angry_btn = new JButton("love");
 			angry_btn.addActionListener(this);
 			angry_btn.setText("사랑");
+			
+			//희정추가
+			String angrypath = currentProPath + "/src/img/heart50.jpg";
+			ImageIcon angryIcon = new ImageIcon(angrypath);
+			angry_btn.setIcon(angryIcon);
 			bg.add(angry_btn);
 			angry_btn.setBounds(750, 800, 50, 50);
 			
@@ -691,6 +740,7 @@ public class Diary extends JFrame implements ActionListener {
 			year.setOpaque(false);
 			year.setBorder(BorderFactory.createEmptyBorder());
 			year.setHorizontalAlignment(JTextField.CENTER);
+			year.setFont(font4);
 			bg.add(lucky_btn);
 			lucky_btn.setBounds(600, 550, 200, 100);
 			

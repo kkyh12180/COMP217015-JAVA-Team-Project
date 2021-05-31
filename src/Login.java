@@ -32,6 +32,12 @@ public class Login {
 		userPW = "";
 	}
 	
+	//»Ò¡§ √ﬂ∞°
+	public String getID()
+	{
+		return userID;
+	}
+	
 	public class IDExist extends JFrame implements ActionListener {
 		
 		public IDExist() {
