@@ -44,6 +44,8 @@ public class JAVAScheduleCalendar extends JAVACalendar implements ActionListener
 	private Font font1 = new Font("DX영화자막 M", Font.PLAIN, 15);
 	private Font font2 = new Font("DX영화자막 M", Font.PLAIN, 25);
 	private Font font3 = new Font("DX영화자막 M", Font.PLAIN, 20);
+	
+	private Font fontwhite = new Font("DX영화자막 M", Font.PLAIN | Font.BOLD, 25);
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -290,9 +292,11 @@ public class JAVAScheduleCalendar extends JAVACalendar implements ActionListener
 			datepanel.setLayout(new BorderLayout());
 
 			JLabel Datedate; // 오늘 날짜(선택된 날짜)
-			Datedate = new JLabel(Year + " . " + (Month + 1) + " . " + Day + "의 일정");
+			Datedate = new JLabel(Year + " . " + (Month + 1) + " . " + Day + " 의 일정");
 			Datedate.setHorizontalAlignment(JLabel.CENTER);
-			Datedate.setFont(font2);
+			Datedate.setFont(fontwhite);
+			Datedate.setForeground(Color.WHITE);
+
 			datepanel.add(Datedate, BorderLayout.CENTER);
 			main.add(datepanel);
 			datepanel.setBounds(100, 25, 500, 50);

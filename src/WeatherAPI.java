@@ -1,5 +1,4 @@
-//2020113925 김영효
-
+//2020113925
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -54,7 +53,7 @@ public class WeatherAPI extends Thread{
 		
 	public void getINFO() {
 		
-		//오늘 날짜
+		//�삤�뒛 �궇吏�
 		SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
 		String todayDate = date.format(System.currentTimeMillis());
 		
@@ -62,15 +61,15 @@ public class WeatherAPI extends Thread{
 		int nowHour = c.get(Calendar.HOUR_OF_DAY);
 		int hour = 0;
 		
-		//세 시간 단위의 날짜와 시간을 구함 (정보 갱신 주기가 세 시간)
+		//�꽭 �떆媛� �떒�쐞�쓽 �궇吏쒖� �떆媛꾩쓣 援ы븿 (�젙蹂� 媛깆떊 二쇨린媛� �꽭 �떆媛�)
 		if (nowHour >= 0 && nowHour < 2) { 
-			//이 경우 어제 날짜 11시의 정보를 가져와야 함
+			//�씠 寃쎌슦 �뼱�젣 �궇吏� 11�떆�쓽 �젙蹂대�� 媛��졇���빞 �븿
 			int dateNum = Integer.parseInt(todayDate);
-			if (dateNum % 100 == 1) // 1월 1일
+			if (dateNum % 100 == 1) // 1�썡 1�씪
 			{
-				if (((dateNum % 10000) / 100) == 1) // 1�썡 1�씪
+				if (((dateNum % 10000) / 100) == 1) // 1占쎌뜞 1占쎌뵬
 					dateNum -= 8870;
-				else if (((dateNum % 10000) / 100) == 3) // 3월 1일 -> 2월 28일 (윤년 고려 X)
+				else if (((dateNum % 10000) / 100) == 3) // 3�썡 1�씪 -> 2�썡 28�씪 (�쑄�뀈 怨좊젮 X)
 					dateNum -= 73;
 				else if (((dateNum % 10000) / 100) == 5 || ((dateNum % 10000) / 100) == 7 ||
 						 ((dateNum % 10000) / 100) == 8 ||((dateNum % 10000) / 100) == 10 ||((dateNum % 10000) / 100) == 12)
@@ -89,6 +88,7 @@ public class WeatherAPI extends Thread{
 		else if (nowHour >= 14 && nowHour < 17) hour = 14;
 		else if (nowHour >= 17 && nowHour < 20) hour = 17;
 		else if (nowHour >= 20 && nowHour < 23) hour = 20;
+		else if (nowHour >= 23) hour = 23;
 		
 		String URLHour;
 		if (hour < 10)
@@ -96,7 +96,7 @@ public class WeatherAPI extends Thread{
 		else URLHour = Integer.toString(hour);
 		URLHour += "00";
 		
-		try { //형식에 맞는 URL 제작
+		try { //�삎�떇�뿉 留욌뒗 URL �젣�옉
 			StringBuilder URLMaker = new StringBuilder(URL);
 			URLMaker.append("?" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + key);
 			URLMaker.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8"));
@@ -106,37 +106,37 @@ public class WeatherAPI extends Thread{
 			URLMaker.append("&" + URLEncoder.encode("base_time", "UTF-8") + "=" + URLEncoder.encode(URLHour, "UTF-8"));
 			URLMaker.append("&" + URLEncoder.encode("nx", "UTF-8") + "=" + URLEncoder.encode("89", "UTF-8"));
 			URLMaker.append("&" + URLEncoder.encode("ny", "UTF-8") + "=" + URLEncoder.encode("91", "UTF-8"));
-			// System.out.println(todayDate); 날짜 테스트
-			// System.out.println(URLHour); 시간 테스트
+			// System.out.println(todayDate); �궇吏� �뀒�뒪�듃
+			// System.out.println(URLHour); �떆媛� �뀒�뒪�듃
 			
-			//만들어진 URL로 연결
+			//留뚮뱾�뼱吏� URL濡� �뿰寃�
 			URL MadeURL = new URL(URLMaker.toString());
 			HttpURLConnection connect = (HttpURLConnection) MadeURL.openConnection(); 
 			connect.setRequestMethod("GET");
 			connect.setRequestProperty("Connect-type", "application/json");
 			
-			String results = ""; //결과를 저장할 문자열
+			String results = ""; //寃곌낵瑜� ���옣�븷 臾몄옄�뿴
 			if (connect.getResponseCode() >= 200 && connect.getResponseCode() <= 300) {
-				// 200 ~ 300일 때 정상 연결
+				// 200 ~ 300�씪 �븣 �젙�긽 �뿰寃�
 				StringBuilder info = new StringBuilder();
 
-				// 버퍼 리더를 통한 input 방식 UTF-8이 아닐 시 정보 깨짐
+				// 踰꾪띁 由щ뜑瑜� �넻�븳 input 諛⑹떇 UTF-8�씠 �븘�땺 �떆 �젙蹂� 源⑥쭚
 				BufferedReader br = new BufferedReader(new InputStreamReader(connect.getInputStream(), "UTF-8"));
 				String infoLine;
 				while ((infoLine = br.readLine()) != null)
 					info.append(infoLine);
-				// System.out.println(info.toString()); // 정보를 받았는지 테스트
+				// System.out.println(info.toString()); // �젙蹂대�� 諛쏆븯�뒗吏� �뀒�뒪�듃
 				
 				br.close();
 				connect.disconnect();
 				results = info.toString();
 			}
 			
-			// 가져온 문자열 데이터를 객체로 변환
+			// 媛��졇�삩 臾몄옄�뿴 �뜲�씠�꽣瑜� 媛앹껜濡� 蹂��솚
 			JSONParser ps = new JSONParser();
 			JSONObject object = (JSONObject)ps.parse(results);
 			
-			// response 키로 파싱 -> body -> items
+			// response �궎濡� �뙆�떛 -> body -> items
 			JSONObject response = (JSONObject)object.get("response");
 			JSONObject body = (JSONObject)response.get("body");			
 			JSONObject items = (JSONObject)body.get("items");
@@ -146,7 +146,7 @@ public class WeatherAPI extends Thread{
 			JSONObject weather;
 			
 			ArrayList<WeatherInfo> infos = new ArrayList<WeatherInfo>();
-			//ArrayList에 값 넣어주기
+			//ArrayList�뿉 媛� �꽔�뼱二쇨린
 			for (int i = 0; i < item.size(); i++) {
 				weather = (JSONObject) item.get(i);
 				tag = (String)weather.get("category");
@@ -154,27 +154,27 @@ public class WeatherAPI extends Thread{
 				
 				WeatherInfo wi = new WeatherInfo (tag, value);
 				infos.add(wi);
-				/* 정보가 잘 들어갔는지 검토
+				/* �젙蹂닿� �옒 �뱾�뼱媛붾뒗吏� 寃��넗
 				System.out.print("Category: " + tag);
 				System.out.println(" Value: " + value);
 				*/
 			}
 			
-			/** 참고 표
-			 * POP : 강수 확률 (사용 x)
-			 * PTY : 강수 상태 | 0: 없음 | 1: 비 | 2: 비/눈 | 3: 눈/비 | 4: 눈
-			 * RO6 : 6시간 강수량 (사용 x)
-			 * REH : 습도 (사용 x)
-			 * SO6 : 6시간 적설량 (사용 x)
-			 * SKY : 하늘 상태 | 1: 맑음 | 2: 구름 조금 | 3: 구름 많음 | 4: 흐림
-			 * T3H : 3시간 기온
-			 * UUU : 바람 관련 (사용 x)
-			 * VEC : 바람 관련 (사용 x)
-			 * VVV : 바람 관련 (사용 x)
+			/** 李멸퀬 �몴
+			 * POP : 媛뺤닔 �솗瑜� (�궗�슜 x)
+			 * PTY : 媛뺤닔 �긽�깭 | 0: �뾾�쓬 | 1: 鍮� | 2: 鍮�/�늿 | 3: �늿/鍮� | 4: �늿
+			 * RO6 : 6�떆媛� 媛뺤닔�웾 (�궗�슜 x)
+			 * REH : �뒿�룄 (�궗�슜 x)
+			 * SO6 : 6�떆媛� �쟻�꽕�웾 (�궗�슜 x)
+			 * SKY : �븯�뒛 �긽�깭 | 1: 留묒쓬 | 2: 援щ쫫 議곌툑 | 3: 援щ쫫 留롮쓬 | 4: �쓲由�
+			 * T3H : 3�떆媛� 湲곗삩
+			 * UUU : 諛붾엺 愿��젴 (�궗�슜 x)
+			 * VEC : 諛붾엺 愿��젴 (�궗�슜 x)
+			 * VVV : 諛붾엺 愿��젴 (�궗�슜 x)
 			 */
 			
 			for (WeatherInfo wis : infos) {
-				//forEach 문을 통해 필요한 정보만 추출
+				//forEach 臾몄쓣 �넻�빐 �븘�슂�븳 �젙蹂대쭔 異붿텧
 				if (wis.getTag().equals("PTY")) {
 					if (wis.getValue().equals("1") || wis.getValue().equals("2"))
 						isRain = true;

@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -126,7 +127,6 @@ public class Diary extends JFrame implements ActionListener {
 			JButton sign_up = new JButton("sign_up");
 			sign_up.setBackground(Color.white);
 			sign_up.setFocusPainted(false);
-			// sign_up.setContentAreaFilled(false);
 			sign_up.setIcon(sign_upIcon);
 			sign_up.addActionListener(this);
 			bg.add(sign_up);
@@ -256,12 +256,12 @@ public class Diary extends JFrame implements ActionListener {
 		public class print_fortune extends JFrame implements ActionListener {
 
 			public print_fortune(int year) {
+
 				setTitle("Your fortune");
 				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				setSize(1800, 150);
-				setBackground(Color.white);
-				setLayout(new BorderLayout());
-
+				setBackground(Color.white);		
+				
 				Font font = new Font("³ª´®¼Õ±Û¾¾ Ææ", Font.PLAIN, 25);
 
 				Fortune luck = new Fortune(year);
@@ -271,11 +271,12 @@ public class Diary extends JFrame implements ActionListener {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
+				
 				JLabel textLabel = new JLabel(luck.getLucky());
 				textLabel.setFont(font);
 				textLabel.setHorizontalAlignment(JLabel.CENTER);
 				textLabel.setBackground(Color.white);
+				textLabel.setOpaque(false);
 				add(textLabel, BorderLayout.CENTER);
 
 				JPanel OKPanel = new JPanel();
@@ -283,6 +284,7 @@ public class Diary extends JFrame implements ActionListener {
 				JButton OKBtn = new JButton("OK");
 				OKBtn.addActionListener(this);
 				OKPanel.add(OKBtn);
+				OKPanel.setOpaque(false);
 				add(OKPanel, BorderLayout.SOUTH);
 			}
 
@@ -299,26 +301,42 @@ public class Diary extends JFrame implements ActionListener {
 		public class InputError extends JFrame implements ActionListener {
 
 			public InputError() {
+				 String currentProjPath = "";
+		         try {
+		            currentProjPath = new File(".").getCanonicalPath();
+		         } catch (IOException e) {
+		            e.printStackTrace();
+		         }
+
 				setTitle("Input error");
 				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				setSize(400, 150);
-				setBackground(Color.white);
-				setLayout(new BorderLayout());
+				setLayout(null);
 
+				String errorpath1 = currentProjPath + "/src/img/error2.jpg";
+				ImageIcon error1 = new ImageIcon(errorpath1);
+				
+				setLayout(new BorderLayout());
 				Font font = new Font("³ª´®¼Õ±Û¾¾ Ææ", Font.PLAIN, 30);
 
+				JLabel label = new JLabel();
+				label.setIcon(error1);
+				label.setLayout(new BorderLayout());
+				add(label);
+				label.setBounds(0, 0, 400, 150);
+				
 				JLabel textLabel = new JLabel("³âµµ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä!");
 				textLabel.setFont(font);
 				textLabel.setHorizontalAlignment(JLabel.CENTER);
-				textLabel.setBackground(Color.white);
-				add(textLabel, BorderLayout.CENTER);
-
+				label.add(textLabel, BorderLayout.CENTER);
+				textLabel.setOpaque(false);
 				JPanel OKPanel = new JPanel();
 				OKPanel.setLayout(new FlowLayout());
 				JButton OKBtn = new JButton("OK");
 				OKBtn.addActionListener(this);
 				OKPanel.add(OKBtn);
-				add(OKPanel, BorderLayout.SOUTH);
+				label.add(OKPanel, BorderLayout.SOUTH);
+				OKPanel.setOpaque(false);
 			}
 
 			@Override
@@ -410,6 +428,7 @@ public class Diary extends JFrame implements ActionListener {
 			JPanel schedule_panel = new JPanel();
 			schedule_panel.setLayout(new BorderLayout());
 			JScrollPane scroll = new JScrollPane(schedule_area);
+			schedule_area.setFont(font4);
 			scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 			schedule_panel.add(scroll, BorderLayout.CENTER);
@@ -607,14 +626,21 @@ public class Diary extends JFrame implements ActionListener {
 		public class print_fortune extends JFrame implements ActionListener {
 
 			public print_fortune(int year) {
+				
+				String currentProjPath = "";
+				try {
+					currentProjPath = new File(".").getCanonicalPath();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		
 				setTitle("Your fortune");
 				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				setSize(1800, 150);
-				setBackground(Color.white);
 				setLayout(new BorderLayout());
 
 				Font font = new Font("³ª´®¼Õ±Û¾¾ Ææ", Font.PLAIN, 25);
-
+			
 				Fortune luck = new Fortune(year);
 				luck.run();
 				try {
@@ -622,13 +648,11 @@ public class Diary extends JFrame implements ActionListener {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
 				JLabel textLabel = new JLabel(luck.getLucky());
 				textLabel.setFont(font);
 				textLabel.setHorizontalAlignment(JLabel.CENTER);
-				textLabel.setBackground(Color.white);
 				add(textLabel, BorderLayout.CENTER);
-
+		
 				JPanel OKPanel = new JPanel();
 				OKPanel.setLayout(new FlowLayout());
 				JButton OKBtn = new JButton("OK");
@@ -649,26 +673,43 @@ public class Diary extends JFrame implements ActionListener {
 		public class InputError extends JFrame implements ActionListener {
 
 			public InputError() {
+				
+				 String currentProjPath = "";
+		         try {
+		            currentProjPath = new File(".").getCanonicalPath();
+		         } catch (IOException e) {
+		            e.printStackTrace();
+		         }
+
 				setTitle("Input error");
 				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				setSize(400, 150);
-				setBackground(Color.white);
-				setLayout(new BorderLayout());
+				setLayout(null);
 
+				String errorpath1 = currentProjPath + "/src/img/error1.jpg";
+				ImageIcon error1 = new ImageIcon(errorpath1);
+				
+				setLayout(new BorderLayout());
 				Font font = new Font("³ª´®¼Õ±Û¾¾ Ææ", Font.PLAIN, 30);
 
+				JLabel label = new JLabel();
+				label.setIcon(error1);
+				label.setLayout(new BorderLayout());
+				add(label);
+				label.setBounds(0, 0, 400, 150);
+				
 				JLabel textLabel = new JLabel("³âµµ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä!");
 				textLabel.setFont(font);
 				textLabel.setHorizontalAlignment(JLabel.CENTER);
-				textLabel.setBackground(Color.white);
-				add(textLabel, BorderLayout.CENTER);
-
+				label.add(textLabel, BorderLayout.CENTER);
+				textLabel.setOpaque(false);
 				JPanel OKPanel = new JPanel();
 				OKPanel.setLayout(new FlowLayout());
 				JButton OKBtn = new JButton("OK");
 				OKBtn.addActionListener(this);
 				OKPanel.add(OKBtn);
-				add(OKPanel, BorderLayout.SOUTH);
+				label.add(OKPanel, BorderLayout.SOUTH);
+				OKPanel.setOpaque(false);
 			}
 
 			@Override
@@ -822,7 +863,6 @@ public class Diary extends JFrame implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			String command = e.getActionCommand();
 
 			if (e.getSource() == weather_btn) {
